@@ -1,0 +1,35 @@
+<% layout('layouts/boilerplate')%>
+    <h1>Edit General Post</h1>
+    <form action="/generalPosts/<%= generalPost._id %>?_method=PUT" method="POST">
+
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" value="<%= generalPost.title %>" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"><%= generalPost.description %></textarea>
+
+        <label for="tags">Tags (comma-separated):</label>
+        <input type="text" name="tags" id="tags" value="<%= generalPost.tags.join(', ') %>">
+
+        <h2>Media</h2>
+        <% if (generalPost.media && generalPost.media.length > 0) { %>
+            <% let mediaItem = generalPost.media[0]; %>
+            <label for="media[0][url]">Media URL:</label>
+            <input type="url" name="media[0][url]" value="<%= mediaItem.url %>" required>
+
+            <label for="media[0][type]">Type (image/video):</label>
+            <select name="media[0][type]" required>
+                <option value="image" <%= mediaItem.type === 'image' ? 'selected' : '' %>>Image</option>
+                <option value="video" <%= mediaItem.type === 'video' ? 'selected' : '' %>>Video</option>
+            </select>
+        <% } %>
+
+        <label for="privacy">Privacy:</label>
+        <select name="privacy" id="privacy">
+            <option value="public" <%= generalPost.privacy === 'public' ? 'selected' : '' %>>Public</option>
+            <option value="friends" <%= generalPost.privacy === 'friends' ? 'selected' : '' %>>Friends</option>
+            <option value="private" <%= generalPost.privacy === 'private' ? 'selected' : '' %>>Private</option>
+        </select>
+
+        <button type="submit">Update General Post</button>
+    </form>
