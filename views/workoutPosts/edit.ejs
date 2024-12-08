@@ -1,0 +1,76 @@
+<% layout('layouts/boilerplate')%>
+<h1>Edit Workout Post</h1>
+<form action="/workoutPosts/<%= workoutPost._id %>?_method=PUT" method="POST">
+  <label for="title">Title:</label>
+  <input
+    type="text"
+    name="title"
+    id="title"
+    value="<%= workoutPost.title %>"
+    required
+  />
+
+  <label for="description">Description:</label>
+  <textarea name="description" id="description">
+<%= workoutPost.description %></textarea
+  >
+
+  <label for="tags">Tags (comma-separated):</label>
+  <input
+    type="text"
+    name="tags"
+    id="tags"
+    value="<%= workoutPost.tags.join(', ') %>"
+  />
+
+  <h2>Exercise</h2>
+  <% if (workoutPost.exercises && workoutPost.exercises.length > 0) { %> <% let
+  exercise = workoutPost.exercises[0]; %>
+  <label for="exercises[0][name]">Name:</label>
+  <input
+    type="text"
+    name="exercises[0][name]"
+    value="<%= exercise.name %>"
+    required
+  />
+
+  <label for="exercises[0][sets]">Sets:</label>
+  <input type="number" name="exercises[0][sets]" value="<%= exercise.sets %>" />
+
+  <label for="exercises[0][reps]">Reps:</label>
+  <input type="number" name="exercises[0][reps]" value="<%= exercise.reps %>" />
+
+  <label for="exercises[0][duration]">Duration (min):</label>
+  <input
+    type="number"
+    name="exercises[0][duration]"
+    value="<%= exercise.duration %>"
+  />
+
+  <label for="exercises[0][weight]">Weight (kg):</label>
+  <input
+    type="number"
+    name="exercises[0][weight]"
+    value="<%= exercise.weight %>"
+  />
+  <% } %>
+
+  <h2>Totals</h2>
+  <label for="totalDuration">Total Duration (min):</label>
+  <input
+    type="number"
+    name="totalDuration"
+    value="<%= workoutPost.totalDuration %>"
+    required
+  />
+
+  <label for="caloriesBurned">Calories Burned:</label>
+  <input
+    type="number"
+    name="caloriesBurned"
+    value="<%= workoutPost.caloriesBurned %>"
+    required
+  />
+
+  <button type="submit">Update Workout Post</button>
+</form>
