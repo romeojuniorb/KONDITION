@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate')%>
+
+<h1>Edit Meal Post</h1>
+<form action="/mealPosts/<%= mealPost._id %>?_method=PUT" method="POST">
+  <label for="title">Title:</label>
+  <input
+    type="text"
+    name="title"
+    id="title"
+    value="<%= mealPost.title %>"
+    required
+  />
+
+  <label for="description">Description:</label>
+  <textarea name="description" id="description">
+<%= mealPost.description %></textarea
+  >
+
+  <label for="tags">Tags (comma-separated):</label>
+  <input
+    type="text"
+    name="tags"
+    id="tags"
+    value="<%= mealPost.tags.join(', ') %>"
+  />
+
+  <h2>Food Item</h2>
+  <% if (mealPost.foods && mealPost.foods.length > 0) { %> <% let food =
+  mealPost.foods[0]; %>
+  <label for="foods[0][name]">Name:</label>
+  <input type="text" name="foods[0][name]" value="<%= food.name %>" required />
+
+  <label for="foods[0][quantity]">Quantity:</label>
+  <input type="text" name="foods[0][quantity]" value="<%= food.quantity %>" />
+
+  <label for="foods[0][calories]">Calories:</label>
+  <input type="number" name="foods[0][calories]" value="<%= food.calories %>" />
+
+  <label for="foods[0][protein]">Protein (g):</label>
+  <input type="number" name="foods[0][protein]" value="<%= food.protein %>" />
+
+  <label for="foods[0][carbs]">Carbs (g):</label>
+  <input type="number" name="foods[0][carbs]" value="<%= food.carbs %>" />
+
+  <label for="foods[0][fats]">Fats (g):</label>
+  <input type="number" name="foods[0][fats]" value="<%= food.fats %>" />
+  <% } %>
+
+  <h2>Totals</h2>
+  <label for="totalCalories">Total Calories:</label>
+  <input
+    type="number"
+    name="totalCalories"
+    value="<%= mealPost.totalCalories %>"
+  />
+
+  <label for="totalProtein">Total Protein (g):</label>
+  <input
+    type="number"
+    name="totalProtein"
+    value="<%= mealPost.totalProtein %>"
+  />
+
+  <label for="totalCarbs">Total Carbs (g):</label>
+  <input type="number" name="totalCarbs" value="<%= mealPost.totalCarbs %>" />
+
+  <label for="totalFats">Total Fats (g):</label>
+  <input type="number" name="totalFats" value="<%= mealPost.totalFats %>" />
+
+  <button type="submit">Update Meal Post</button>
+</form>
