@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><%= mealPost.title %></h5>
+                <p class="card-text"><%= mealPost.description %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Total Calories:</strong> <%= mealPost.totalCalories %></li>
+                <li class="list-group-item"><strong>Total Protein:</strong> <%= mealPost.totalProtein %> g</li>
+                <li class="list-group-item"><strong>Total Carbs:</strong> <%= mealPost.totalCarbs %> g</li>
+                <li class="list-group-item"><strong>Total Fats:</strong> <%= mealPost.totalFats %> g</li>
+                <li class="list-group-item"><strong>Tags:</strong> <%= mealPost.tags.join(", ") %></li>
+            </ul>
+            <% if (mealPost.foods.length > 0) { %>
+                <div class="card-body">
+                    <h5>Foods</h5>
+                    <ul>
+                        <% mealPost.foods.forEach(food => { %>
+                            <li>
+                                <p><strong>Name:</strong> <%= food.name %></p>
+                                <p><strong>Quantity:</strong> <%= food.quantity || "N/A" %></p>
+                                <p><strong>Calories:</strong> <%= food.calories || "N/A" %></p>
+                                <p><strong>Protein:</strong> <%= food.protein || "N/A" %> g</p>
+                                <p><strong>Carbs:</strong> <%= food.carbs || "N/A" %> g</p>
+                                <p><strong>Fats:</strong> <%= food.fats || "N/A" %> g</p>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+            <div class="card-body">
+                <a class="card-link btn btn-info" href="/mealPosts/<%= mealPost._id %>/edit">Edit</a>
+                <form class="d-inline" action="/mealPosts/<%= mealPost._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

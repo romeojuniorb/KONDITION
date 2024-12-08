@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <h1>Meal Posts</h1>
+    <% if (mealPosts.length > 0) { %>
+        <div class="row">
+            <% mealPosts.forEach(meal => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/mealPosts/<%= meal._id %>"><%= meal.title %></a>
+                            </h5>
+                            <p class="card-text"><%= meal.description %></p>
+                            <p><strong>Calories:</strong> <%= meal.totalCalories %></p>
+                            <p><strong>Tags:</strong> <%= meal.tags.join(", ") %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p>No meal posts found.</p>
+    <% } %>
+</div>
