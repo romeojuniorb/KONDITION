@@ -1,27 +1,15 @@
-import mongoose from 'mongoose';
-import passportLocalMongoose from 'passport-local-mongoose';
+import mongoose from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
 
-const { Schema } = mongoose;
-
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
   },
-  role: {
-    type: String,
-    enum: ['user', 'admin'], 
-    default: 'user',
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+}, { timestamps: true }); 
 
 UserSchema.plugin(passportLocalMongoose);
 
-const User = mongoose.model('User', UserSchema);
-
+const User = mongoose.model("User", UserSchema);
 export default User;
