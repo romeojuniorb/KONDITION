@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <h1>General Posts</h1>
+    <% if (generalPosts.length > 0) { %>
+        <div class="row">
+            <% generalPosts.forEach(post => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/generalPosts/<%= post._id %>"><%= post.title %></a>
+                            </h5>
+                            <p class="card-text"><%= post.description %></p>
+                            <p><strong>Tags:</strong> <%= post.tags.join(", ") %></p>
+                            <p><strong>Privacy:</strong> <%= post.privacy %></p>
+                            <% if (post.media.length > 0) { %>
+                                <h6>Media:</h6>
+                                <ul>
+                                    <% post.media.forEach(media => { %>
+                                        <li>
+                                            <p><strong>Type:</strong> <%= media.type %></p>
+                                            <a href="<%= media.url %>" target="_blank">View Media</a>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p>No general posts found.</p>
+    <% } %>
+</div>
