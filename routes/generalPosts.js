@@ -1,6 +1,7 @@
 import express from "express";
 import GeneralPost from "../models/GeneralPost.js";
 import ExpressError from "../utils/ExpressError.js";
+import { isLoggedIn } from "../utils/middleware.js";
 
 const router = express.Router();
 
@@ -14,16 +15,17 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// New general post form
-router.get("/new", (req, res) => {
+// New general post form (protected)
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("posts/generalPosts/new");
 });
 
-// Create a new general post
-router.post("/", async (req, res, next) => {
+// Create a new general post (protected)
+router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const newGeneralPost = new GeneralPost({ ...req.body, type: "general" });
     await newGeneralPost.save();
+    req.flash("success", "General post created successfully!");
     res.redirect("/generalPosts");
   } catch (err) {
     next(new ExpressError("Error creating a new general post.", 500));
@@ -43,8 +45,8 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// Edit general post form
-router.get("/:id/edit", async (req, res, next) => {
+// Edit general post form (protected)
+router.get("/:id/edit", isLoggedIn, async (req, res, next) => {
   try {
     const generalPost = await GeneralPost.findById(req.params.id);
     if (!generalPost) {
@@ -56,10 +58,11 @@ router.get("/:id/edit", async (req, res, next) => {
   }
 });
 
-// Delete a general post
-router.delete("/:id", async (req, res, next) => {
+// Delete a general post (protected)
+router.delete("/:id", isLoggedIn, async (req, res, next) => {
   try {
     await GeneralPost.findByIdAndDelete(req.params.id);
+    req.flash("success", "General post deleted successfully!");
     res.redirect("/generalPosts");
   } catch (err) {
     next(new ExpressError("Error deleting general post.", 500));
