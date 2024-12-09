@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h1 class="text-center">Generate Your Workout Plan</h1>
+  <form action="/workoutPlans/generate-plan" method="POST" class="validated-form" novalidate>
+    <div class="mb-3">
+      <label for="goal" class="form-label">What is your fitness goal?</label>
+      <select id="goal" name="goal" class="form-select" required>
+        <option value="lose_weight">Lose Weight</option>
+        <option value="gain_muscle">Gain Muscle</option>
+        <option value="improve_endurance">Improve Endurance</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="experience" class="form-label">What is your experience level?</label>
+      <select id="experience" name="experience" class="form-select" required>
+        <option value="1">Beginner</option>
+        <option value="2">Intermediate</option>
+        <option value="3">Advanced</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Plan</button>
+  </form>
+</div>
