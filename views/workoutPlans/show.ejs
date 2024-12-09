@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h1 class="text-center">Your Personalized Workout Plan</h1>
+  <div class="card mt-4">
+    <div class="card-header">
+      <h3>Workout Plan</h3>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <% plan.forEach((workout, index) => { %>
+          <li class="list-group-item">
+            <strong>Day <%= index + 1 %>:</strong> <%= workout.day %> - <%= workout.activity %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-primary">Back to Home</a>
+  </div>
+</div>
