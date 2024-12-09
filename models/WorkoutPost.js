@@ -9,11 +9,11 @@ const workoutSchema = new Schema({
       name: { type: String, required: true },
       sets: { type: Number },
       reps: { type: Number },
-      duration: { type: Number }, // In minutes
-      weight: { type: Number } // In kilograms
+      duration: { type: Number }, 
+      weight: { type: Number } 
     }
   ],
-  totalDuration: { type: Number, required: true }, // Total duration in minutes
+  totalDuration: { type: Number, required: true }, 
   caloriesBurned: { type: Number, required: true }
 });
 
