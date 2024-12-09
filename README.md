@@ -1,5 +1,4 @@
-# Creating a README.md file with the provided content
-readme_content = """
+
 # KONDITION
 
 KONDITION is a modern fitness and nutrition web application designed to help users track their fitness journey, plan meals and workouts, and connect with like-minded individuals. The application provides personalized tools for users to create meal plans, workout routines, and share posts about their progress.
@@ -94,9 +93,6 @@ KONDITION is a modern fitness and nutrition web application designed to help use
 - **Progress Tracking**: Add charts and visualizations for user metrics.
 - **Community Features**: Enable comments and likes on posts to foster engagement.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributors
 
