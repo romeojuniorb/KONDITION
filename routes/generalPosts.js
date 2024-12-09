@@ -5,7 +5,6 @@ import { isLoggedIn } from "../utils/middleware.js";
 
 const router = express.Router();
 
-// Fetch all general posts
 router.get("/", async (req, res, next) => {
   try {
     const generalPosts = await GeneralPost.find({ type: "general" });
@@ -15,12 +14,10 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// New general post form (protected)
 router.get("/new", isLoggedIn, (req, res) => {
   res.render("posts/generalPosts/new");
 });
 
-// Create a new general post (protected)
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const newGeneralPost = new GeneralPost({ ...req.body, type: "general" });
@@ -32,7 +29,6 @@ router.post("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Fetch a specific general post
 router.get("/:id", async (req, res, next) => {
   try {
     const generalPost = await GeneralPost.findById(req.params.id);
@@ -45,7 +41,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// Edit general post form (protected)
 router.get("/:id/edit", isLoggedIn, async (req, res, next) => {
   try {
     const generalPost = await GeneralPost.findById(req.params.id);
@@ -58,7 +53,6 @@ router.get("/:id/edit", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Delete a general post (protected)
 router.delete("/:id", isLoggedIn, async (req, res, next) => {
   try {
     await GeneralPost.findByIdAndDelete(req.params.id);
