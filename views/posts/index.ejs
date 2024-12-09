@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-5">
+    <h1 class="mb-4">All Posts</h1>
+
+    <!-- Meal Posts Section -->
+    <section class="mb-5">
+        <h2 class="mb-3">Meal Posts</h2>
+        <% if (mealPosts.length > 0) { %>
+            <div class="row">
+                <% mealPosts.forEach(meal => { %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="/mealPosts/<%= meal._id %>" class="text-dark text-decoration-none"><%= meal.title %></a>
+                                </h5>
+                                <p class="card-text"><%= meal.description %></p>
+                                <p><strong>Calories:</strong> <%= meal.totalCalories %></p>
+                                <p><strong>Tags:</strong> <%= meal.tags.join(", ") %></p>
+                                <a href="/mealPosts/<%= meal._id %>" class="mt-auto btn btn-primary">View Post</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No meal posts found.</p>
+        <% } %>
+    </section>
+
+    <hr class="my-5">
+
+    <!-- Workout Posts Section -->
+    <section class="mb-5">
+        <h2 class="mb-3">Workout Posts</h2>
+        <% if (workoutPosts.length > 0) { %>
+            <div class="row">
+                <% workoutPosts.forEach(workout => { %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="/workoutPosts/<%= workout._id %>" class="text-dark text-decoration-none"><%= workout.title %></a>
+                                </h5>
+                                <p class="card-text"><%= workout.description %></p>
+                                <p><strong>Total Duration:</strong> <%= workout.totalDuration %> minutes</p>
+                                <p><strong>Calories Burned:</strong> <%= workout.caloriesBurned %></p>
+                                <p><strong>Tags:</strong> <%= workout.tags.join(", ") %></p>
+                                <a href="/workoutPosts/<%= workout._id %>" class="mt-auto btn btn-primary">View Post</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No workout posts found.</p>
+        <% } %>
+    </section>
+
+    <hr class="my-5">
+
+    <!-- General Posts Section -->
+    <section class="mb-5">
+        <h2 class="mb-3">General Posts</h2>
+        <% if (generalPosts.length > 0) { %>
+            <div class="row">
+                <% generalPosts.forEach(post => { %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="/generalPosts/<%= post._id %>" class="text-dark text-decoration-none"><%= post.title %></a>
+                                </h5>
+                                <p class="card-text"><%= post.description %></p>
+                                <p><strong>Tags:</strong> <%= post.tags.join(", ") %></p>
+                                <p><strong>Privacy:</strong> <%= post.privacy %></p>
+                                <a href="/generalPosts/<%= post._id %>" class="mt-auto btn btn-primary">View Post</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No general posts found.</p>
+        <% } %>
+    </section>
+</div>

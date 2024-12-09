@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">Create a New Post</h1>
+    <div class="col-6 offset-3">
+        <form action="/posts/new" method="GET" class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="postType">Select Post Type</label>
+                <select class="form-select" id="postType" name="type" required>
+                    <option value="" disabled selected>Select a post type</option>
+                    <option value="general">General Post</option>
+                    <option value="meal">Meal Post</option>
+                    <option value="workout">Workout Post</option>
+                </select>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary">Go to Post Form</button>
+            </div>
+        </form>
+    </div>
+</div>
