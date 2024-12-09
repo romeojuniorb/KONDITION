@@ -102,8 +102,3 @@ KONDITION is a modern fitness and nutrition web application designed to help use
 - **Marushen** - User Interaction and Conclusion.
 """
 
-file_path = "/mnt/data/README.md"
-with open(file_path, "w") as file:
-    file.write(readme_content)
-
-file_path
