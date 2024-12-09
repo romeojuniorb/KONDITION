@@ -6,13 +6,25 @@ import path from "path";
 import { fileURLToPath } from "url";
 import ejsMate from "ejs-mate";
 import ExpressError from "./utils/ExpressError.js";
+import flash from "connect-flash";
+import session from "express-session";
+import passport from "passport";
+import LocalStrategy from "passport-local";
+
 import generalPostRoutes from "./routes/generalPosts.js";
 import mealPostRoutes from "./routes/mealPosts.js";
 import workoutPostRoutes from "./routes/workoutPosts.js";
+import userRoutes from "./routes/users.js";
+import mealPlansRoutes from "./routes/mealPlans.js"
+import workoutPlans from "./routes/workoutPlans.js";
+import createRoutes from "./routes/create.js"; 
+import dashboardRoutes from "./routes/dashboard.js";
+
 import MealPost from "./models/MealPost.js";
 import GeneralPost from "./models/GeneralPost.js";
 import WorkoutPost from "./models/WorkoutPost.js";
-
+import User from "./models/User.js"; 
+import { isLoggedIn } from './utils/middleware.js';
 
 // Define __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -47,18 +59,57 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
+// Session and Flash Configuration
+app.use(
+  session({
+    secret: "yourSecretKey", // Replace with a secure key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(flash());
+
+// Passport Configuration
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Flash Messages Middleware
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // Modular Routes
+app.use("/", userRoutes);
 app.use("/generalPosts", generalPostRoutes);
 app.use("/mealPosts", mealPostRoutes);
 app.use("/workoutPosts", workoutPostRoutes);
+app.use("/mealPlans", mealPlansRoutes);
+app.use("/workoutPlans", workoutPlans);
+app.use("/create", createRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 // Home Route
 app.get("/", (req, res) => {
   res.render("home");
 });
+
+app.use((req, res, next) => {
+  res.locals.user = req.user; // Make the logged-in user available to templates
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 
 // New Post Selector Route
 app.get("/posts/new", (req, res) => {
@@ -111,6 +162,12 @@ app.get("/posts/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+app.get("/posts/new", (req, res) => {
+  res.render("posts/selectType");
+});
+
+
 
 // 404 Route
 app.all("*", (req, res, next) => {
