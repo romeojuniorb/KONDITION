@@ -1,62 +1,12 @@
 <% layout('layouts/boilerplate') %>
 
 <div class="container">
-    <h1>All Posts</h1>
-
-    <!-- Meal Posts -->
-    <h2>Meal Posts</h2>
-    <% if (mealPosts.length > 0) { %>
-        <div class="row">
-            <% mealPosts.forEach(meal => { %>
-                <div class="col-12 mb-3">
-                    <div class="card flex-row align-items-center p-3">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="/mealPosts/<%= meal._id %>"><%= meal.title %></a>
-                            </h5>
-                            <p class="card-text"><%= meal.description %></p>
-                            <p><strong>Calories:</strong> <%= meal.totalCalories %></p>
-                            <p><strong>Tags:</strong> <%= meal.tags.join(", ") %></p>
-                        </div>
-                    </div>
-                </div>
-            <% }) %>
-        </div>
-    <% } else { %>
-        <p>No meal posts found.</p>
-    <% } %>
-
-    <!-- Workout Posts -->
-    <h2>Workout Posts</h2>
-    <% if (workoutPosts.length > 0) { %>
-        <div class="row">
-            <% workoutPosts.forEach(workout => { %>
-                <div class="col-12 mb-3">
-                    <div class="card flex-row align-items-center p-3">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="/workoutPosts/<%= workout._id %>"><%= workout.title %></a>
-                            </h5>
-                            <p class="card-text"><%= workout.description %></p>
-                            <p><strong>Total Duration:</strong> <%= workout.totalDuration %> minutes</p>
-                            <p><strong>Calories Burned:</strong> <%= workout.caloriesBurned %></p>
-                            <p><strong>Tags:</strong> <%= workout.tags.join(", ") %></p>
-                        </div>
-                    </div>
-                </div>
-            <% }) %>
-        </div>
-    <% } else { %>
-        <p>No workout posts found.</p>
-    <% } %>
-
-    <!-- General Posts -->
-    <h2>General Posts</h2>
+    <h1>General Posts</h1>
     <% if (generalPosts.length > 0) { %>
         <div class="row">
             <% generalPosts.forEach(post => { %>
-                <div class="col-12 mb-3">
-                    <div class="card flex-row align-items-center p-3">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <a href="/generalPosts/<%= post._id %>"><%= post.title %></a>
@@ -64,6 +14,17 @@
                             <p class="card-text"><%= post.description %></p>
                             <p><strong>Tags:</strong> <%= post.tags.join(", ") %></p>
                             <p><strong>Privacy:</strong> <%= post.privacy %></p>
+                            <% if (post.media.length > 0) { %>
+                                <h6>Media:</h6>
+                                <ul>
+                                    <% post.media.forEach(media => { %>
+                                        <li>
+                                            <p><strong>Type:</strong> <%= media.type %></p>
+                                            <a href="<%= media.url %>" target="_blank">View Media</a>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            <% } %>
                         </div>
                     </div>
                 </div>
