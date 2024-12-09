@@ -9,7 +9,7 @@ export default {
         tags: ["motivation", "monday"],
         type: "general",
         privacy: "public",
-        user: "64a7f9f9b1d3c4e5f6789012" // Placeholder ObjectId
+        user: "64a7f9f9b1d3c4e5f6789012" 
       },
       {
         title: "Gym Updates",
@@ -20,7 +20,7 @@ export default {
         tags: ["updates", "gym"],
         type: "general",
         privacy: "public",
-        user: "64a7f9f9b1d3c4e5f6789012" // Placeholder ObjectId
+        user: "64a7f9f9b1d3c4e5f6789012" 
       }
     ]
   };
