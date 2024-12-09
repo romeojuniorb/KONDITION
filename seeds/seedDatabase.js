@@ -14,11 +14,9 @@ dotenv.config();
 
 const seedDatabase = async () => {
   try {
-    // Connect to MongoDB
     await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/kondition");
     console.log("Database connected!");
 
-    // Clear existing data
     await User.deleteMany();
     console.log("Users cleared!");
 
@@ -31,20 +29,17 @@ const seedDatabase = async () => {
     await GeneralPost.deleteMany();
     console.log("General posts cleared!");
 
-    // Seed users
     const users = await Promise.all(
       userData.users.map(async (user) => {
         const newUser = new User({ username: user.username, email: user.email });
-        await User.register(newUser, user.password); // `register` hashes the password
+        await User.register(newUser, user.password); 
         return newUser;
       })
     );
     console.log("Users seeded!");
 
-    // Use the first user for posts
     const userId = users[0]._id;
 
-    // Seed posts
     const mealPostsWithUser = mealData.meals.map((meal) => ({ ...meal, user: userId }));
     const workoutPostsWithUser = workoutData.workouts.map((workout) => ({ ...workout, user: userId }));
     const generalPostsWithUser = generalPostData.generalPosts.map((post) => ({ ...post, user: userId }));
@@ -58,7 +53,6 @@ const seedDatabase = async () => {
     await GeneralPost.insertMany(generalPostsWithUser);
     console.log("General posts seeded!");
 
-    // Close the connection
     mongoose.connection.close();
   } catch (err) {
     console.error("Error seeding database:", err);
