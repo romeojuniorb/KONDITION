@@ -1,15 +1,37 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">KONDITION</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/posts">Posts</a>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">KONDITION</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Left Links -->
+      <div class="navbar-nav me-auto">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/posts">Explore</a>
+        <a class="nav-link" href="/mealPlans/generate">Generate Meal Plan</a>
+        <a class="nav-link" href="/workoutPlans/generate">Generate Workout Plan</a>
+      </div>
+
+      <!-- Right User Info -->
+      <div class="navbar-nav ms-auto">
+        <% if (currentUser) { %>
+          <a class="nav-link" href="/dashboard">Dashboard</a>
+          <span class="navbar-text text-light me-3">Welcome, <%= currentUser.username %>!</span>
+          <a class="nav-link" href="/logout">Logout</a>
+        <% } else { %>
+          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/register">Register</a>
+        <% } %>
+      </div>
     </div>
+  </div>
 </nav>
